@@ -1,0 +1,102 @@
+[
+    {},
+    {
+        "message_history": {
+            "id": "chatcmpl-76KpTTES86soieAe6okGtkJnad9Yd",
+            "object": "chat.completion",
+            "created": 1681744391,
+            "model": "gpt-3.5-turbo-0301",
+            "usage": {
+                "prompt_tokens": 40,
+                "completion_tokens": 25,
+                "total_tokens": 65
+            },
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": "Machine learning is a type of artificial intelligence that enables computer programs to learn from data and improve over time without being explicitly programmed."
+                    },
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+        },
+        "sys_message": [
+            {
+                "role": "system",
+                "content": "You are a chatbot that gives short, concise responses based on the following context (no conversation history yet)"
+            },
+            {
+                "role": "user",
+                "content": "what is machine learning?"
+            }
+        ]
+    },
+    {
+        "message_history": {
+            "id": "chatcmpl-76Kpohui7Twrh0g41yHhbQ4odiudN",
+            "object": "chat.completion",
+            "created": 1681744412,
+            "model": "gpt-3.5-turbo-0301",
+            "usage": {
+                "prompt_tokens": 59,
+                "completion_tokens": 25,
+                "total_tokens": 84
+            },
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": "Some commonly used tools in machine learning include Python, TensorFlow, Keras, scikit-learn, and PyTorch."
+                    },
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+        },
+        "sys_message": [
+            {
+                "role": "system",
+                "content": "You are a chatbot that gives short, concise responses based on the following context Machine learning is a type of artificial intelligence that enables computer programs to learn from data and improve over time."
+            },
+            {
+                "role": "user",
+                "content": "what tools are commonly used in this field?"
+            }
+        ]
+    },
+    {
+        "message_history": {
+            "id": "chatcmpl-76KqIp5ELQXTqsA0rWFA7P9zhgMcV",
+            "object": "chat.completion",
+            "created": 1681744442,
+            "model": "gpt-3.5-turbo-0301",
+            "usage": {
+                "prompt_tokens": 86,
+                "completion_tokens": 62,
+                "total_tokens": 148
+            },
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": "In machine learning, architecture refers to the overall design or structure of a machine learning model. This includes the number and type of layers, the type of activation functions used, and other design choices that can affect the performance of the model. Choosing the appropriate architecture is a critical task in developing effective machine learning models."
+                    },
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+        },
+        "sys_message": [
+            {
+                "role": "system",
+                "content": "You are a chatbot that gives short, concise responses based on the following context Machine learning is a type of artificial intelligence that enables computer programs to learn from data and improve over time. Some commonly used tools in machine learning include Python, TensorFlow, Keras, scikit-learn, and PyTorch."
+            },
+            {
+                "role": "user",
+                "content": "what does the term architecture refer to in this field?"
+            }
+        ]
+    }
+]

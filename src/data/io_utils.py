@@ -46,9 +46,9 @@ def read_json(file_path):
     return data
 
 
-def json_obj(input1, input2, input3):
+def json_obj(input1, input2):
     # Create a JSON object (modify this function to suit your needs)
-    return {"input1": input1, "input2": input2, "input3": input3}
+    return {"message_history": input1, "sys_message": input2}
 
 
 def write_json(data, file_path):
