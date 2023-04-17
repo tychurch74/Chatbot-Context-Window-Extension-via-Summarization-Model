@@ -1,8 +1,13 @@
-# GPT-3.5-turbo Chatbot with Conversation Summarization
-This Python script uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature that allows the chatbot to retain a summary of previous interactions and simulate long-term memory, even for lengthy conversations.
+# Chatbot Context Window Extension via Summarization Model
+This Python script uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations.
 
 ## Problem
-Chatbots utilizing GPT-3.5-turbo have a limited token count, restricting the context window size. If the conversation grows too long, the context window will truncate the conversation, causing the chatbot to lose prior interactions' context. By using a conversation summarizer, the chatbot can maintain a summarized context, keeping the token count within acceptable limits and simulating long-term memory.
+Chatbots utilizing LLM's such as ChatGPT have a limited token count, restricting the context window size. If the conversation grows too long, the context window will truncate the conversation, causing the chatbot to lose prior interactions' context. By using a conversation summarizer and inserting it's output within OpenAI's newly implemented 'system message', the chatbot can maintain a summarized context of the entire conversation, keeping the token count within acceptable limits and simulating a kind of 'long-term memory'.
+
+## Possible Improvements
+- Implement an additional 'attention mechanism' within the summarizer module to focus on the most important parts of the conversation. This could be done by using a custom attention layer within the summarizer, or by using a pre-trained attention mechanism such as BERT.
+- Improve the summarizer's output speed by using a GPU and/or by running the summarization process in parallel with the chatbot API call.
+- Investigate how open source chat bots such as Llamma-7B, GPT-j or FLAN-T5 perform with this method.
 
 ## How to Use
 1. Install the required dependencies:
@@ -16,7 +21,7 @@ pip install pandas
 pip install pillow
 ```
 
-2. Navigate to src/main.py and add your OpenAI API key to the openai.api_key setting. Implement a secure method to store and load your API key.
+2. Navigate to src/main.py and add your OpenAI API key to the openai.api_key setting. *Optional:* Implement a secure method to store and load your API key.
 
 3. Modify the settings at the beginning of the code as required, such as the num_iterations, chunk_size, completion_file_path, and message_history_file_path.
 
