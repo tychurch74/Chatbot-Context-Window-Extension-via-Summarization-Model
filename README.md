@@ -1,5 +1,5 @@
 # Chatbot Context Window Extension via Summarization Model
-This Python script uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations.
+This Python script uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing a fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations.
 
 ## Problem
 Chatbots utilizing LLM's such as ChatGPT have a limited token count, restricting the context window size. If the conversation grows too long, the context window will truncate the conversation, causing the chatbot to lose prior interactions' context. By using a conversation summarizer and inserting it's output within OpenAI's newly implemented 'system message', the chatbot can maintain a summarized context of the entire conversation, keeping the token count within acceptable limits and simulating a kind of 'long-term memory'.
@@ -37,15 +37,15 @@ You can modify the following settings in the script:
 
 openai.api_key: Your OpenAI API key (implement a secure method to load this value).
 
-enable_json_output: A boolean value to enable or disable JSON file outputs (True by default).
+enable_json_output: A boolean value to enable or disable JSON file outputs (False by default).
 
-num_iterations: The number of user inputs the script will accept in the main loop (3 by default).
+num_iterations: The number of user inputs the script will accept in the main loop (3 by default). This setting is merely a safety measure to prevent a user from inadvertantly racking up substantial API costs. Change this value to anything that suits your API budget.
 
-chunk_size: The size of chunks for the Summarizer (4 by default).
+chunk_size: The number of sentences fed into the summarizer at a time, increase this value if you intend of having extremely long conversations (4 by default).
 
-completion_file_path: The file path for the completion.json file.
+completion_file_path: The file path for the completion.json file. This file will contain the last system message and user input.
 
-message_history_file_path: The file path for the message_history.json file.
+message_history_file_path: The file path for the message_history.json file. This file will contain the entire conversation history from beginning to end.
 
 
 ## Custom modules:
