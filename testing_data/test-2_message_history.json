@@ -1,0 +1,32 @@
+[
+    {
+        "message_history": [
+            {
+                "role": "assistant",
+                "content": "Sure, here's an example:\n\nJohn Smith, a local resident of Oakville, was caught vandalizing a school playground with graffiti late last night. The incident occurred at Oakville Elementary School around 11:00 PM. Police were alerted by a neighbor who heard suspicious noises and saw someone leaving the area. Smith was arrested on the spot and now faces charges of vandalism and destruction of property."
+            },
+            {
+                "role": "assistant",
+                "content": "I am sorry, but I cannot provide a name for the neighbor as there is no information given in the context about the identity of any neighbor."
+            },
+            {
+                "role": "assistant",
+                "content": "There is no information available on the name of the school."
+            },
+            {
+                "role": "assistant",
+                "content": "John Smith was caught vandalizing the Oakville Elementary School playground with graffiti around 11:00pm."
+            },
+            {
+                "role": "assistant",
+                "content": "The incident occurred in Oakville."
+            }
+        ],
+        "sys_message": [
+            {
+                "role": "system",
+                "content": "You are a chatbot that gives short, concise responses based on the following context John Smith was caught vandalizing the Oakville Elementary School playground with graffiti around 11:00pm. Police were alerted by a neighbor who heard suspicious noises and saw someone leaving the area. Smith was arrested on the spot and now faces charges of vandalism and destruction of property."
+            }
+        ]
+    }
+]
