@@ -1,93 +1,29 @@
-import openai
 import os
-from modules.text_summarization import Summarizer
-from data.io_utils import write_json, json_obj, add_to_json
 
-# Settings
-openai.api_key = os.environ["OPENAI_API_KEY"]
-enable_json_output = True
-num_iterations = 2
-chunk_size = 4
-completion_file_path = "testing_data/test-1_completion.json"
-message_history_file_path = "testing_data/test-5_message_history.json"
-
-message_history = []
-
-
-def generate_conversation_summary(message_history):
-    if not message_history:
-        conversation_summary = [
-            {
-                "role": "system",
-                "content": "You are a chatbot that gives short, concise responses based on the following context: (no conversation history yet)",
-            }
-        ]
-    else:
-        content = [message["content"] for message in message_history]
-        combined_content = "".join(content)
-        summarizer = Summarizer()
-        summary = summarizer.process_in_chunks(combined_content, chunk_size=chunk_size)
-        conversation_summary = [
-            {
-                "role": "system",
-                "content": f"You are a chatbot that gives short, concise responses based on the following context: {summary}",
-            }
-        ]
-
-    return conversation_summary
-
-
-def keyword_search(input_string, message_history):
-    related_messages = []
-    keywords = input_string.split()
-    for message in message_history:
-        for keyword in keywords:
-            if keyword.lower() in message['content'].lower():
-                related_messages.append(message)
-                break  # No need to check for other keywords, one match is enough    
-    
-    related_content = [message['content'] for message in related_messages]
-    return related_content
-
-
-def log_to_json(data, file_path):
-    if enable_json_output:
-        add_to_json(data, file_path)
-
-
-def chat(inp, role="user"):
-    conversation_summary = generate_conversation_summary(message_history)
-    if not message_history:
-        related_content = "no conversation history yet"
-    else:
-        related_content = keyword_search(inp, message_history)
-    conversation_summary.append(
-        {"role": "system", "content": f"here is some additional context from past messages: {related_content}"}
-    )
-    conversation_summary.append(
-        {"role": role, "content": f"based on the context given {inp}"}
-    )
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", messages=conversation_summary
-    )
-    chat_data = json_obj(conversation_summary, completion)
-    write_json(chat_data, completion_file_path)
-    reply_content = completion.choices[0].message.content
-    message_history.append({"role": "assistant", "content": reply_content})
-    return reply_content
-
-
-def main():
-    for i in range(num_iterations):
-        user_input = input("> ")
-        print("User input was:", user_input)
-        print(chat(user_input))
-        print()
-
-    conversation_summary = generate_conversation_summary(message_history)
-    data = json_obj(message_history, conversation_summary)
-    write_json(data, message_history_file_path)
+from modules.chatGPT import ChatGPT
+from modules.io_utils import write_json, json_obj
 
 
 if __name__ == "__main__":
-    main()
+    openai_api_key = os.environ["OPENAI_API_KEY"]
+    enable_json_output = False
+    num_iterations = 2
+    chunk_size = 4
+    completion_file_path = "testing_data/test-1_completion.json"
+    message_history_file_path = "testing_data/test-5_message_history.json"
+    
+    chat_gpt = ChatGPT(openai_api_key, enable_json_output=enable_json_output, chunk_size=chunk_size, completion_file_path=completion_file_path)
+
+    for i in range(num_iterations):
+        user_input = input("> ")
+        print("User input was:", user_input)
+        print(chat_gpt.chat(user_input))
+        print()
+
+    if chat_gpt.enable_json_output:
+        conversation_summary = chat_gpt.generate_conversation_summary()
+        data = json_obj(chat_gpt.message_history, conversation_summary)
+        write_json(data, message_history_file_path)
+    else:
+        pass
+
