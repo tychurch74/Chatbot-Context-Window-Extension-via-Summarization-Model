@@ -6,10 +6,10 @@ from data.io_utils import write_json, json_obj, add_to_json
 # Settings
 openai.api_key = os.environ["OPENAI_API_KEY"]
 enable_json_output = True
-num_iterations = 5
+num_iterations = 2
 chunk_size = 4
 completion_file_path = "testing_data/test-1_completion.json"
-message_history_file_path = "testing_data/test-4_message_history.json"
+message_history_file_path = "testing_data/test-5_message_history.json"
 
 message_history = []
 
@@ -37,6 +37,19 @@ def generate_conversation_summary(message_history):
     return conversation_summary
 
 
+def keyword_search(input_string, message_history):
+    related_messages = []
+    keywords = input_string.split()
+    for message in message_history:
+        for keyword in keywords:
+            if keyword.lower() in message['content'].lower():
+                related_messages.append(message)
+                break  # No need to check for other keywords, one match is enough    
+    
+    related_content = [message['content'] for message in related_messages]
+    return related_content
+
+
 def log_to_json(data, file_path):
     if enable_json_output:
         add_to_json(data, file_path)
@@ -44,6 +57,13 @@ def log_to_json(data, file_path):
 
 def chat(inp, role="user"):
     conversation_summary = generate_conversation_summary(message_history)
+    if not message_history:
+        related_content = "no conversation history yet"
+    else:
+        related_content = keyword_search(inp, message_history)
+    conversation_summary.append(
+        {"role": "system", "content": f"here is some additional context from past messages: {related_content}"}
+    )
     conversation_summary.append(
         {"role": role, "content": f"based on the context given {inp}"}
     )
@@ -51,6 +71,7 @@ def chat(inp, role="user"):
         model="gpt-3.5-turbo", messages=conversation_summary
     )
     chat_data = json_obj(conversation_summary, completion)
+    write_json(chat_data, completion_file_path)
     reply_content = completion.choices[0].message.content
     message_history.append({"role": "assistant", "content": reply_content})
     return reply_content
