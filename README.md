@@ -21,7 +21,7 @@ pip install pandas
 pip install pillow
 ```
 
-2. Navigate to src/main.py and add your OpenAI API key to the openai.api_key setting. *Optional:* Implement a secure method to store and load your API key.
+2. Navigate to src/main.py (terminal based) or src/gui.py (GUI app) and add your OpenAI API key to your environment variables as per the instructions here: https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
 
 3. Modify the settings at the beginning of the code as required, such as the num_iterations, chunk_size, completion_file_path, and message_history_file_path.
 
@@ -35,15 +35,13 @@ pip install pillow
 ## Settings
 You can modify the following settings in the script:
 
-openai.api_key: Your OpenAI API key (implement a secure method to load this value).
-
 enable_json_output: A boolean value to enable or disable JSON file outputs (False by default).
 
-num_iterations: The number of user inputs the script will accept in the main loop (3 by default). This setting is merely a safety measure to prevent a user from inadvertantly racking up substantial API costs. Change this value to anything that suits your API budget.
+num_iterations: The number of user inputs the script will accept in the main loop. This setting is merely a safety measure to prevent a user from inadvertantly racking up substantial API costs. Change this value to anything that suits your API budget.
 
 chunk_size: The number of sentences fed into the summarizer at a time, increase this value if you intend of having extremely long conversations (4 by default).
 
-completion_file_path: The file path for the completion.json file. This file will contain the last system message and user input.
+completion_file_path: The file path for the completion.json file. This file will contain the full output from the OpenAI API and the last set of system messages.
 
 message_history_file_path: The file path for the message_history.json file. This file will contain the entire conversation history from beginning to end.
 
