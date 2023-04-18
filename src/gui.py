@@ -1,14 +1,14 @@
-import customtkinter as ctk
-import tkinter as tk
 import openai
 import os
+import tkinter as tk
 
-from tkinter import ttk
+from tkinter import Tk, Text, Entry, Button, Scrollbar, END, font
 from modules.text_summarization import Summarizer
+
 
 # Settings
 openai.api_key = os.environ["OPENAI_API_KEY"]
-enable_json_output = True
+enable_json_output = False
 num_iterations = 5
 chunk_size = 4
 completion_file_path = "testing_data/test-1_completion.json"
@@ -53,41 +53,50 @@ def chat(inp, role="user"):
     return reply_content
 
 
-def main(input_value, input_text, output_text):
-    input_text = input_text.get("1.0", tk.END).strip()
-    if input_value == 1:
-        reply = chat(input_text)
-        output_text.delete(1.0, tk.END)
-        output_text.insert(tk.END, reply)
+# GUI
+def create_chatbot_gui():
+    root = Tk()
+    root.title("Chatbot")
+    root.geometry("700x600")
+    root.config(bg="#2C3E50")
 
+    BACKGROUND_GRAY = "#ABB2B9"
+    BACKGROUND_COLOR = "#17202A"
+    TEXT_COLOR = "#EAECEE"
+    FONT_STANDARD = "Helvetica 14"
+    FONT_BOLD = "Helvetica 13 bold"
 
-def create_gui():
-    window = tk.Tk()
-    window.title("Infinite Chatbot")
-    window.geometry("700x500")
+    custom_font = font.Font(family="Helvetica", size=14)
 
-    def on_button_click(input_value):
-        main(input_value, input_text, output_text)
+    def send_message():
+        user_message = "You -> " + message_entry.get()
+        chat_history.insert(END, "\n" + user_message)
 
-    input_label = ttk.Label(window, text="Input")
-    input_label.pack(pady=(10, 5))
+        user_input = message_entry.get().lower()
 
-    input_text = tk.Text(window, font="arial", wrap=tk.WORD, width=60, height=10)
-    input_text.pack(pady=(0, 5))
+        if user_input == "hello":
+            chat_history.insert(END, "\n" + "Bot -> Hi there, how can I help?")
+        else:
+            chat_history.insert(END, "\n")
+            chat_history.insert(END, "\n" + f"Bot -> {chat(user_input)}")
 
-    btn1 = ctk.CTkButton(
-        window, text="Submit", command=lambda: on_button_click(1), corner_radius=10
-    )
-    btn1.pack(pady=5)
+        message_entry.delete(0, END)
 
-    output_label = ttk.Label(window, text="Output")
-    output_label.pack(pady=(10, 5))
+    chat_history = Text(root, bg=BACKGROUND_COLOR, fg=TEXT_COLOR, font=custom_font, width=60, wrap=tk.WORD, padx=10, pady=10)
+    chat_history.grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0))
 
-    output_text = tk.Text(window, font="arial", wrap=tk.WORD, width=60, height=10)
-    output_text.pack(pady=(0, 5))
+    chat_scrollbar = Scrollbar(chat_history, bg=BACKGROUND_GRAY)
+    chat_scrollbar.place(relheight=1, relx=0.975)
 
-    window.mainloop()
+    message_entry = Entry(root, bg="#2C3E50", fg=TEXT_COLOR, font=custom_font, width=55)
+    message_entry.grid(row=2, column=0, padx=(10, 0), pady=(0, 10))
+
+    send_button = Button(root, text="Send", font=FONT_BOLD, bg=BACKGROUND_GRAY, command=send_message)
+    send_button.grid(row=2, column=1, padx=(0, 10), pady=(0, 10))
+
+    root.mainloop()
 
 
 if __name__ == "__main__":
-    create_gui()
+    create_chatbot_gui()
+
