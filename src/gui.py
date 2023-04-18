@@ -1,7 +1,10 @@
+import customtkinter as ctk
+import tkinter as tk
 import openai
 import os
+
+from tkinter import ttk
 from modules.text_summarization import Summarizer
-from data.io_utils import write_json, json_obj, add_to_json
 
 # Settings
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -37,11 +40,6 @@ def generate_conversation_summary(message_history):
     return conversation_summary
 
 
-def log_to_json(data, file_path):
-    if enable_json_output:
-        add_to_json(data, file_path)
-
-
 def chat(inp, role="user"):
     conversation_summary = generate_conversation_summary(message_history)
     conversation_summary.append(
@@ -50,23 +48,46 @@ def chat(inp, role="user"):
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", messages=conversation_summary
     )
-    chat_data = json_obj(conversation_summary, completion)
     reply_content = completion.choices[0].message.content
     message_history.append({"role": "assistant", "content": reply_content})
     return reply_content
 
 
-def main():
-    for i in range(num_iterations):
-        user_input = input("> ")
-        print("User input was:", user_input)
-        print(chat(user_input))
-        print()
+def main(input_value, input_text, output_text):
+    input_text = input_text.get("1.0", tk.END).strip()
+    if input_value == 1:
+        reply = chat(input_text)
+        output_text.delete(1.0, tk.END)
+        output_text.insert(tk.END, reply)
 
-    conversation_summary = generate_conversation_summary(message_history)
-    data = json_obj(message_history, conversation_summary)
-    write_json(data, message_history_file_path)
+
+def create_gui():
+    window = tk.Tk()
+    window.title("Infinite Chatbot")
+    window.geometry("700x500")
+
+    def on_button_click(input_value):
+        main(input_value, input_text, output_text)
+
+    input_label = ttk.Label(window, text="Input")
+    input_label.pack(pady=(10, 5))
+
+    input_text = tk.Text(window, font="arial", wrap=tk.WORD, width=60, height=10)
+    input_text.pack(pady=(0, 5))
+
+    btn1 = ctk.CTkButton(
+        window, text="Submit", command=lambda: on_button_click(1), corner_radius=10
+    )
+    btn1.pack(pady=5)
+
+    output_label = ttk.Label(window, text="Output")
+    output_label.pack(pady=(10, 5))
+
+    output_text = tk.Text(window, font="arial", wrap=tk.WORD, width=60, height=10)
+    output_text.pack(pady=(0, 5))
+
+    window.mainloop()
 
 
 if __name__ == "__main__":
-    main()
+    create_gui()
