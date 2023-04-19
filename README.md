@@ -1,8 +1,8 @@
 # Chatbot Context Window Extension via Summarization Model
-This Python script uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing a fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations.
+This set of Python scripts uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing a fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations. In addition to summarization there is also a simple key-word search mechanism that allows the model to gain specific contextual information based on key-words within a user's prompt.
 
 ## Problem
-Chatbots utilizing LLM's such as ChatGPT have a limited token count, restricting the context window size. If the conversation grows too long, the context window will truncate the conversation, causing the chatbot to lose prior interactions' context. By using a conversation summarizer and inserting it's output within OpenAI's newly implemented 'system message', the chatbot can maintain a summarized context of the entire conversation, keeping the token count within acceptable limits and simulating a kind of 'long-term memory'.
+Chatbots utilizing LLM's such as ChatGPT have a limited token (maximum number of words) count, restricting the context window size. If the conversation grows too long, the context window will truncate the conversation, causing the chatbot to lose prior interactions' context. By using a conversation summarizer and inserting it's output within OpenAI's newly implemented 'system message', the chatbot can maintain a summarized context of the entire conversation, keeping the token count within acceptable limits and simulating a kind of 'long-term memory'. In combination with a simple key-word search function, the model is able to not only have a consistent overall idea of a conversation in it's entirety, it is also able to pick out specific details from the conversation history that relate to each individual prompt. With these two functions working in tandem, the LLM is no longer bound by a sliding context window and can retain understanding irregardless of conversation length.
 
 ## Possible Improvements
 - Implement an additional 'attention mechanism' within the summarizer module to focus on the most important parts of the conversation. This could be done by using a custom attention layer within the summarizer, or by using a pre-trained attention mechanism such as BERT.
@@ -19,6 +19,8 @@ pip install transformers
 pip install torch
 pip install pandas
 pip install pillow
+pip install elevenlabslib
+pip install pydub
 ```
 
 2. Navigate to src/main.py (terminal based) or src/gui.py (GUI app) and add your OpenAI API key to your environment variables as per the instructions here: https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
