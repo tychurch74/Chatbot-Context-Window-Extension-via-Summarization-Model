@@ -1,4 +1,6 @@
 # Chatbot Context Window Extension via Summarization Model
+*To view results navigate to the 'testing_data' folder. There you will find text conversation transcripts as well as JSON data containing the full output from the OpenAI API and the entire conversation history.*
+
 This set of Python scripts uses OpenAI's GPT-3.5-turbo language model to create a chatbot that provides short, concise responses based on the context of the conversation. It includes a conversation summarization feature utilizing a fine tuned version of Google's BART LLM that allows the chatbot to retain a summary of previous interactions, partially simulating long-term memory, even for lengthy conversations. In addition to summarization there is also a simple key-word search mechanism that allows the model to gain specific contextual information based on key-words within a user's prompt.
 
 ## Problem
