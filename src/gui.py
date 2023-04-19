@@ -28,7 +28,7 @@ chat_gpt = ChatGPT(
 def create_chatbot_gui():
     root = Tk()
     root.title("Chatbot")
-    root.geometry("700x600")
+    # root.geometry("700x600")
     root.config(bg="#2C3E50")
 
     BACKGROUND_GRAY = "#ABB2B9"

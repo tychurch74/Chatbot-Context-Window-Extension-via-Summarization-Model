@@ -2,10 +2,17 @@ import openai
 
 from modules.text_summarization import Summarizer
 from modules.io_utils import write_json, json_obj
+from modules.stop_words import key_stop
 
 
 class ChatGPT:
-    def __init__(self, openai_api_key, enable_json_output=False, chunk_size=4, completion_file_path="data/completion.json"):
+    def __init__(
+        self,
+        openai_api_key,
+        enable_json_output=False,
+        chunk_size=4,
+        completion_file_path="data/completion.json",
+    ):
         self.openai_api_key = openai_api_key
         openai.api_key = self.openai_api_key
         self.enable_json_output = enable_json_output
@@ -25,7 +32,9 @@ class ChatGPT:
             content = [message["content"] for message in self.message_history]
             combined_content = "".join(content)
             summarizer = Summarizer()
-            summary = summarizer.process_in_chunks(combined_content, chunk_size=self.chunk_size)
+            summary = summarizer.process_in_chunks(
+                combined_content, chunk_size=self.chunk_size
+            )
             conversation_summary = [
                 {
                     "role": "system",
@@ -37,14 +46,15 @@ class ChatGPT:
 
     def keyword_search(self, input_string):
         related_messages = []
-        keywords = input_string.split()
+        message_key = key_stop(input_string)
+        keywords = message_key.split()
         for message in self.message_history:
             for keyword in keywords:
-                if keyword.lower() in message['content'].lower():
+                if keyword.lower() in message["content"].lower():
                     related_messages.append(message)
-                    break  # No need to check for other keywords, one match is enough    
+                    break  # No need to check for other keywords, one match is enough
 
-        related_content = [message['content'] for message in related_messages]
+        related_content = [message["content"] for message in related_messages]
         return related_content
 
     def chat(self, inp, role="user"):
@@ -54,7 +64,10 @@ class ChatGPT:
         else:
             related_content = self.keyword_search(inp)
         conversation_summary.append(
-            {"role": "system", "content": f"here is some additional context from past messages: {related_content}"}
+            {
+                "role": "system",
+                "content": f"here is some additional context from past messages: {related_content}",
+            }
         )
         conversation_summary.append(
             {"role": role, "content": f"based on the context given {inp}"}
@@ -70,5 +83,3 @@ class ChatGPT:
         reply_content = completion.choices[0].message.content
         self.message_history.append({"role": "assistant", "content": reply_content})
         return reply_content
-    
-
