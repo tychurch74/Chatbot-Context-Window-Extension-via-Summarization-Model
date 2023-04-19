@@ -11,7 +11,6 @@ from modules.tts import text_to_speech, play
 openai_api_key = os.environ["OPENAI_API_KEY"]
 enable_json_output = False
 text_to_speech_enabled = False
-num_iterations = 2
 chunk_size = 4
 completion_file_path = "testing_data/test-1_completion.json"
 message_history_file_path = "testing_data/test-5_message_history.json"
@@ -28,7 +27,6 @@ chat_gpt = ChatGPT(
 def create_chatbot_gui():
     root = Tk()
     root.title("Chatbot")
-    # root.geometry("700x600")
     root.config(bg="#2C3E50")
 
     BACKGROUND_GRAY = "#ABB2B9"
