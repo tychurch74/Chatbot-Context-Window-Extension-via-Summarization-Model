@@ -12,12 +12,14 @@ Chatbots utilizing LLM's such as ChatGPT have a limited token count, restricting
 - Investigate how open source chat bots such as Llamma-7B, GPT-j or FLAN-T5 perform with this method.
 
 ## How to Use
+* Tested on Python 3.10.9
 1. Install the required dependencies:
 
 ```
 pip install openai
 pip install nltk
 pip install transformers
+pip install sentence-transformers
 pip install torch
 pip install pandas
 pip install pillow
