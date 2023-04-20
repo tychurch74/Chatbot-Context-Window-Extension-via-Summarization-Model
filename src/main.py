@@ -9,8 +9,8 @@ if __name__ == "__main__":
     enable_json_output = True
     num_iterations = 5
     chunk_size = 4
-    completion_file_path = "testing_data/json_data/test-1_completion.json"
-    message_history_file_path = "testing_data/json_data/test-1_message_history.json"
+    completion_file_path = "testing_data/json_data/semantic_search_test-1_completion.json"
+    message_history_file_path = "testing_data/json_data/semantic_search_test-1_message_history.json"
     
     chat_gpt = ChatGPT(openai_api_key, enable_json_output=enable_json_output, chunk_size=chunk_size, completion_file_path=completion_file_path)
 
