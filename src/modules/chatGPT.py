@@ -1,8 +1,8 @@
 import openai
 
 from modules.text_summarization import Summarizer
+from modules.semantic_search import SemanticSearch
 from modules.io_utils import write_json, json_obj
-from modules.stop_words import key_stop
 
 
 class ChatGPT:
@@ -73,7 +73,7 @@ class ChatGPT:
 
         return conversation_summary
 
-    def keyword_search(self, input_string):
+    def semantic_search(self, input_string):
         """
         Searches for messages in the conversation history that contain keywords from the input string.
 
@@ -84,16 +84,8 @@ class ChatGPT:
             A list of related content from the conversation history.
 
         """
-        related_messages = []
-        message_key = key_stop(input_string)
-        keywords = message_key.split()
-        for message in self.message_history:
-            for keyword in keywords:
-                if keyword.lower() in message["content"].lower():
-                    related_messages.append(message)
-                    break  # No need to check for other keywords, one match is enough
-
-        related_content = [message["content"] for message in related_messages]
+        semantic_search = SemanticSearch(self.message_history)
+        related_content = semantic_search.semantic_search(input_string)
         return related_content
 
     def chat(self, inp, role="user"):
@@ -112,7 +104,7 @@ class ChatGPT:
         if not self.message_history:
             related_content = "no conversation history yet"
         else:
-            related_content = self.keyword_search(inp)
+            related_content = self.semantic_search(inp)
         conversation_summary.append(
             {
                 "role": "system",
