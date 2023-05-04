@@ -5,7 +5,8 @@ import json
 def reformat_nested_list(nested_list):
     flat_list = []
     for sublist in nested_list:
-        flat_list.extend(sublist)
+        for item in sublist:
+            flat_list.extend(item)
     return flat_list
 
 
@@ -24,7 +25,7 @@ def combine_json_files(folder_path, output_file_name):
 
     # Write the combined_data dictionary to a new JSON file
     flattened_data = reformat_nested_list(combined_data)
-    output_file_path = os.path.join(folder_path, output_file_name)
+    output_file_path = os.path.join('data', output_file_name)
     with open(output_file_path, 'w') as output_file:
         json.dump(flattened_data, output_file, indent=2)
 
