@@ -10,7 +10,7 @@ class SemanticSearch:
         self.corpus = self.get_corpus()
 
     def get_corpus(self):
-        content = [message["content"] for message in self.message_history]
+        content = [self.message_history]
         corpus = []
         for i in range(len(content)):
             sentence = nltk.sent_tokenize(content[i])
