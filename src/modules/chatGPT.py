@@ -3,6 +3,7 @@ import openai
 from modules.text_summarization import iterative_summary
 from modules.semantic_search import SemanticSearch
 
+
 MODEL = "gpt-3.5-turbo"
 
 def chat_gpt(user_input, context="no conversation history yet"):
@@ -39,16 +40,28 @@ def semantic_search(message_history, input_string):
     return related_content
 
 
-def chatbot_with_memory(num_messages=3, token_window_size=100):
+def reformat_nested_list(nested_list):
+    flat_list = []
+    for sublist in nested_list:
+        flat_list.extend(sublist)
+    return flat_list
+
+
+def chatbot_with_memory(num_messages=2, token_window_size=100):
     user_input = input("Enter your message: ")
+    full_message_history = []
     message_history = chat_gpt(user_input)
+    full_message_history.append(message_history)
     for i in range(0,num_messages):
         joined_message_history = " ".join([message['content'] for message in message_history])
+        flat_full_message_history = reformat_nested_list(full_message_history)
+        joined_full_message_history = " ".join([message['content'] for message in flat_full_message_history])
         context = iterative_summary(joined_message_history, token_window_size)
-        related_content = semantic_search(joined_message_history, user_input)
+        related_content = semantic_search(joined_full_message_history, user_input)
         full_context = related_content + context
         user_input = input("Enter your message: ")
         message_history = chat_gpt(user_input, full_context)
+        full_message_history.append(message_history)
 
-    return message_history
+    return full_message_history
 
