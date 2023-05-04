@@ -13,7 +13,9 @@ def num_tokens_from_string(string: str) -> int:
 
 def summary(text, max_length=64, min_length=16, do_sample=False):
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-    output = summarizer(text, max_length=max_length, min_length=min_length, do_sample=do_sample)      
+    output = summarizer(
+        text, max_length=max_length, min_length=min_length, do_sample=do_sample
+    )
     summary = output[0]["summary_text"]
     return summary
 
@@ -35,14 +37,26 @@ def process_in_chunks(text, chunk_size=8):
     return joined_summary
 
 
-def iterative_summary(input_text, max_tokens, summary_function=process_in_chunks, token_count_function=num_tokens_from_string):
+# Note to self: This function is the dominant time complexity in the program at O(n^3 * log(n))... I think.
+def iterative_summary(
+    input_text,
+    max_tokens,
+    summary_function=process_in_chunks,
+    token_count_function=num_tokens_from_string,
+):
     if token_count_function(input_text) <= max_tokens:
         current_summary = input_text
-    
     else:
-        current_summary = summary_function(input_text)
+        left = 0
+        right = len(input_text)
 
-        while token_count_function(current_summary) > max_tokens:
-            current_summary = summary_function(current_summary)
+        while left <= right:
+            middle = (left + right) // 2
+            current_summary = summary_function(input_text[:middle])
+
+            if token_count_function(current_summary) <= max_tokens:
+                left = middle + 1
+            else:
+                right = middle - 1
 
     return current_summary
