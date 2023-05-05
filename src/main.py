@@ -6,11 +6,9 @@ from modules.io_utils import write_json
 from modules.long_term_storage import combine_json_files
 
 
-current_time = datetime.datetime.now()
-current_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
-print(current_time)
-
-json_data_filename = f"message_history_{current_time}.json"
+def get_current_time_formatted():
+    current_time = datetime.datetime.now()
+    return current_time.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 def reformat_nested_list(nested_list):
@@ -20,11 +18,21 @@ def reformat_nested_list(nested_list):
     return flat_list
 
 
-if __name__ == "__main__":
-    use_long_term_memory = True
+def main(use_long_term_memory=True):
+    print("Starting Alyx...\n")
+    current_time = get_current_time_formatted()
+    print(f"Current time is: {current_time}\n")
+    json_data_filename = f"message_history_{current_time}.json"
+
     message_history = chatbot_with_memory(long_term_memory=use_long_term_memory)
     flattened_history = reformat_nested_list(message_history)
     write_json(flattened_history, os.path.join("data/base_json_data", json_data_filename))
+
     folder_path = "data/cleaned_json_data"
     combine_json_files(folder_path, "combined_data.json")
+
+
+if __name__ == "__main__":
+    main()
+
     

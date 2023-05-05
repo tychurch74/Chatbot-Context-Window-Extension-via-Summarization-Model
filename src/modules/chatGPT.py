@@ -1,7 +1,7 @@
 import openai
 import json
 
-from modules.text_summarization import iterative_summary
+from modules.text_summarization import iterative_summary, num_tokens_from_string
 from modules.semantic_search import SemanticSearch
 
 
@@ -31,7 +31,9 @@ def chat_gpt(user_input, context):
 
     message_history.append(user_message)
     message_history.append(generated_message_data)
+    print("Alyx said: ")
     print(generated_message["content"])
+    print("\n")
 
     return message_history
 
@@ -59,6 +61,7 @@ def chatbot_with_memory(num_messages=3, token_window_size=512, long_term_memory=
             [message["content"] for message in full_message_history]
         )
         user_input = input("Enter your message: ")
+        print("\n")
         related_content = semantic_search(joined_full_message_history, user_input)
         message_history = chat_gpt(user_input, related_content)
 
@@ -82,8 +85,10 @@ def chatbot_with_memory(num_messages=3, token_window_size=512, long_term_memory=
             related_content = semantic_search(joined_message_history, user_input)
 
         full_context = related_content + context
+        current_context_size = num_tokens_from_string(full_context)
 
         user_input = input("Enter your message: ")
+        print(f"Current context size: {current_context_size} \n")
         message_history = chat_gpt(user_input, full_context)
         full_message_history.append(message_history)
 
