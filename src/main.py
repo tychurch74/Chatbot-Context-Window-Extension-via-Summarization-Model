@@ -3,6 +3,7 @@ import datetime
 
 from modules.chatGPT import chatbot_with_memory
 from modules.io_utils import write_json
+from modules.long_term_storage import combine_json_files
 
 
 current_time = datetime.datetime.now()
@@ -20,7 +21,8 @@ def reformat_nested_list(nested_list):
 
 
 if __name__ == "__main__":
-    message_history = chatbot_with_memory(long_term_memory=True)
-
+    use_long_term_memory = True
+    message_history = chatbot_with_memory(long_term_memory=use_long_term_memory)
     flattened_history = reformat_nested_list(message_history)
     write_json(flattened_history, os.path.join("data/json_data", json_data_filename))
+    combine_json_files("data/json_data", "combined_data.json")

@@ -76,7 +76,11 @@ def chatbot_with_memory(num_messages=1, token_window_size=100, long_term_memory=
         )
 
         context = iterative_summary(joined_message_history, token_window_size)
-        related_content = semantic_search(joined_full_message_history, user_input)
+        if long_term_memory:
+            related_content = semantic_search(joined_full_message_history, user_input)
+        else:
+            related_content = semantic_search(joined_message_history, user_input)
+
         full_context = related_content + context
 
         user_input = input("Enter your message: ")

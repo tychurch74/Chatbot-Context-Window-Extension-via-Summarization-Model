@@ -35,7 +35,3 @@ def combine_json_files(folder_path, output_file_name):
     output_file_path = os.path.join("data", output_file_name)
     with open(output_file_path, "w") as output_file:
         json.dump(formatted_data, output_file, indent=2)
-
-
-# Example usage
-combine_json_files("data/json_data", "combined_data.json")

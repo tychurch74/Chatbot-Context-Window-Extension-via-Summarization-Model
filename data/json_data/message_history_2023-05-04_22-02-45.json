@@ -1,0 +1,28 @@
+[
+    [
+        "role",
+        "content",
+        "role",
+        "content",
+        "role",
+        "content",
+        "role",
+        "content",
+        "role",
+        "content",
+        "role",
+        "content",
+        {
+            "role": "system",
+            "content": "You are a helpful assistant. Use the following context to help inform your responses: Is there anything specific you would like to know about me?user said: Just looking to chat, could you tell me a little about yourself?I am constantly learning and improving my responses based on the interactions I have with people.You are a helpful assistant.You are a helpful assistant.You are a helpful assistant. Use the following context to help inform your responses. Is there anything specific you would like to know about me?"
+        },
+        {
+            "role": "user",
+            "content": "user said: Oh sorry, I meant LLM as in 'large language model', probably should've specified that lol"
+        },
+        {
+            "role": "assistant",
+            "content": "assistant said: No problem at all! As an AI language model, I am designed to understand and respond to natural language input from users like you. My purpose is to assist and provide helpful responses to your inquiries. Is there anything specific you would like to know about how I work as an LLM?"
+        }
+    ]
+]

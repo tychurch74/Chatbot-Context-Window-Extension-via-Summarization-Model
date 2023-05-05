@@ -1,0 +1,28 @@
+[
+    [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant. Use the following context to help inform your responses: no context yet, this is the first message"
+        },
+        {
+            "role": "user",
+            "content": "user said: Hi! I'm Ty, nice to meet you!"
+        },
+        {
+            "role": "assistant",
+            "content": "assistant said: Hello Ty! Nice to meet you too. How can I assist you today?"
+        },
+        {
+            "role": "system",
+            "content": "You are a helpful assistant. Use the following context to help inform your responses: I'm Ty, nice to meet you!Nice to meet you too.assistant said: Hello Ty!Use the following context to help inform your responses: no context yet, this is the first message user said: Hi!How can I assist you today?You are a helpful assistant. Use the following context to help inform your responses: no context yet, this is the first message user said: Hi! I'm Ty, nice to meet you! assistant said: Hello Ty! Nice to meet you too. How can I assist you today?"
+        },
+        {
+            "role": "user",
+            "content": "user said: Just looking to chat, could you tell me a little about yourself?"
+        },
+        {
+            "role": "assistant",
+            "content": "assistant said: Of course! I am an AI language model designed to assist and communicate with users like you. I am constantly learning and improving my responses based on the interactions I have with people. Is there anything specific you would like to know about me?"
+        }
+    ]
+]
