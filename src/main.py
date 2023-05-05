@@ -25,4 +25,4 @@ if __name__ == "__main__":
     message_history = chatbot_with_memory(long_term_memory=use_long_term_memory)
     flattened_history = reformat_nested_list(message_history)
     write_json(flattened_history, os.path.join("data/json_data", json_data_filename))
-    combine_json_files("data/json_data", "combined_data.json")
+    
