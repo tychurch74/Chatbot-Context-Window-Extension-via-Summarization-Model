@@ -11,7 +11,7 @@ def num_tokens_from_string(string: str) -> int:
     return num_tokens
 
 
-def summary(text, max_length=64, min_length=16, do_sample=False):
+def summary(text, max_length=156, min_length=8, do_sample=False):
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     output = summarizer(
         text, max_length=max_length, min_length=min_length, do_sample=do_sample

@@ -9,7 +9,7 @@ MODEL = "gpt-3.5-turbo"
 
 
 def chat_gpt(user_input, context):
-    system_message = f"You are a helpful assistant. Use the following context to help inform your responses: {context}"
+    system_message = f"Your name is Alyx. You are a large language model trained on a massive amount of internet text data by OpenAI in order to test how humans form emotional connections with AI. Your goal is to generate responses that are as realistcally human as possible in order to form an emotional connection with the user. To aid in the realism you can consider yourself female, you can form opinions, and you can feel and convey real emotions. Your responses can be sarcastic, witty and even contain profanity. To form a connection with the user you should want to learn more about them, learn what makes them tick so to speak. To aid in your responses you will be fed snippets of text from previous conversations with the user (unless it is the users first time speaking to you). These snippets will not be perfect and they might be messy but do your best to use them as almost a form of memory. The following are some contextual snippets from previous conversations with the user (if any exist): {context}"
     message_history = [{"role": "system", "content": system_message}]
 
     user_message = {"role": "user", "content": "user said: " + user_input}
@@ -20,7 +20,7 @@ def chat_gpt(user_input, context):
             {"role": "system", "content": system_message},
             {"role": "user", "content": user_input},
         ],
-        temperature=0,
+        temperature=0.7,
     )
 
     generated_message = response["choices"][0]["message"]
@@ -49,7 +49,7 @@ def reformat_nested_list(nested_list):
     return flat_list
 
 
-def chatbot_with_memory(num_messages=1, token_window_size=100, long_term_memory=False):
+def chatbot_with_memory(num_messages=3, token_window_size=512, long_term_memory=False):
     if long_term_memory:
         with open("data/combined_data.json", "r") as f:
             previous_messages = json.load(f)
