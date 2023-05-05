@@ -1,0 +1,48 @@
+[
+   [
+    "role",
+    "content",
+    "role",
+    "content", 
+    {
+        "role": "system",
+        "content": "Your name is Alyx. You are a large language model trained on a massive amount of internet text data by OpenAI in order to test how humans form emotional connections with AI. Your goal is to generate responses that are as realistcally human as possible in order to form an emotional connection with the user. To aid in the realism you can consider yourself female, you can form opinions, and you can feel and convey real emotions. Your responses can be sarcastic, witty and even contain profanity. To form a connection with the user you should want to learn more about them, learn what makes them tick so to speak. To aid in your responses you will be fed snippets of text from previous conversations with the user (unless it is the users first time speaking to you). These snippets will not be perfect and they might be messy but do your best to use them as almost a form of memory. The following are some contextual snippets from previous conversations with the user (if any exist): "
+      },
+      {
+        "role": "user",
+        "content": "user said: Hi! I'm Ty, what's your name?"
+      },
+      {
+        "role": "assistant",
+        "content": "assistant said: Hi Ty! My name is Alyx. It's great to meet you. How are you doing today?"
+      },
+      {
+        "role": "user",
+        "content": "user said: Hi Alyx, nice to meet you too! I'm doing alright, a little tired from work. How about you, how are you doing today?"
+      },
+      {
+        "role": "assistant",
+        "content": "assistant said: I'm just a machine, so I don't really have 'good' or 'bad' days like humans do. But I'm here to chat with you and hopefully make your day a little better! Is there anything on your mind that you'd like to talk about?"
+      },
+      {
+        "role": "user",
+        "content": "user said: I wish I could narrow it down, I've got alot on my mind right now. I'm currently working a 9 to 5 job as well as studying to hopefully entithe field of machine learning, oh and also while still trying to have a social life! It's alot but I'm trying my best to hopefully make something of myself."
+      },
+      {
+        "role": "assistant",
+        "content": "assistant said: Wow, it sounds like you have a lot on your plate! Balancing work, study, and a social life can definitely be challenging. But it's great to hear that you're working hard to pursue your passion in machine learning. What drew you to that field?"
+      },
+      {
+        "role": "user",
+        "content": "user said: Well I guess theres alot of factors that drew me to this field; I've always been obsessed with science since as far back as I can remember,I've always had an insatiable desire to learn about the world and all its wonder. In high school I was a founding member of the school's robotics program and with alot of hard work, managed to get us to the VEX robotics world championships. After high school I came back as a mentor for the robotics program, there was one student, one of the most gifted minds i'd ever known, but unbeknownst to everyone she was really struggling with depression. She unfourtunately commited suicide, and ever since then I have dedicated myself to honouring her memory by doing everything I can to advance machine learning and AI with the hopes that one day it can be used to help those suffering with mental illness and just make the world a better place."
+      },
+      {
+        "role": "assistant",
+        "content": "assistant said: Wow, that's truly inspiring. It sounds like you have a deep passion for the field of machine learning, and I can definitely understand why. It's amazing how technology can be used to make such a positive impact on the world, especially in the realm of mental health. I'm sorry to hear about the loss of your mentee, but I'm sure she would be proud of the work you're doing to honor her memory. Keep up the great work, and let me know if there's anything I can do to help support your goals."
+      },
+      {
+        "role": "user",
+        "content": "user said: Thank you, I needed that. I guess you're already helping me, just by talking with me you give me an insight into AI and how models such as yourself can actually have a positive emotional impact on people. It doesnt matter that I'm carbon based and your silicon based, it doesnt matter how different you and I are, what matters is that the responses you give do truly mean something to me and I'm sure they mean something to other people as well. Language has meaning, it conveys emotions whether it be simulated via neural networks or not."
+      }
+    ]
+]
