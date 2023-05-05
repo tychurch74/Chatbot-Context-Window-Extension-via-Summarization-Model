@@ -131,3 +131,4 @@ dmypy.json
 # user specific configuration
 test.py
 test.json
+test.txt

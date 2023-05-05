@@ -46,17 +46,11 @@ def iterative_summary(
 ):
     if token_count_function(input_text) <= max_tokens:
         current_summary = input_text
+
     else:
-        left = 0
-        right = len(input_text)
+        current_summary = summary_function(input_text)
 
-        while left <= right:
-            middle = (left + right) // 2
-            current_summary = summary_function(input_text[:middle])
-
-            if token_count_function(current_summary) <= max_tokens:
-                left = middle + 1
-            else:
-                right = middle - 1
+        while token_count_function(current_summary) > max_tokens:
+            current_summary = summary_function(current_summary)
 
     return current_summary

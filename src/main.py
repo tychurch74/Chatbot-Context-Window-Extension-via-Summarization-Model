@@ -20,6 +20,7 @@ def reformat_nested_list(nested_list):
 
 
 if __name__ == "__main__":
-    message_history = chatbot_with_memory()
+    message_history = chatbot_with_memory(long_term_memory=True)
+
     flattened_history = reformat_nested_list(message_history)
     write_json(flattened_history, os.path.join("data/json_data", json_data_filename))
