@@ -46,7 +46,7 @@ sys_string = f"Your name is Alyx. You are a large language model trained by Open
 system_message = {"role": "system", "content": sys_string}
 
 with gr.Blocks() as demo:
-    
+    username = "Ty"
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
     save = gr.Button("Save")
@@ -54,7 +54,7 @@ with gr.Blocks() as demo:
     state = gr.State([])
 
     def user(user_message, history):
-        return "", history + [["user said: " + user_message, None]]
+        return "", history + [[f"{username} said: " + user_message, None]]
 
     def bot(history, messages_history):
         user_message = "Ty said:" + history[-1][0]
